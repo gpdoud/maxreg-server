@@ -10,8 +10,8 @@ using maxreg_server.Models;
 namespace maxreg_server.Migrations
 {
     [DbContext(typeof(MaxRegDbContext))]
-    [Migration("20190329152120_garbage3")]
-    partial class garbage3
+    [Migration("20190329153451_new test")]
+    partial class newtest
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +36,8 @@ namespace maxreg_server.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EventId");
+
+                    b.HasIndex("GuestId");
 
                     b.ToTable("Attendees");
                 });
@@ -90,6 +92,11 @@ namespace maxreg_server.Migrations
                     b.HasOne("maxreg_server.Models.Event")
                         .WithMany("Attendees")
                         .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("maxreg_server.Models.Guest")
+                        .WithMany("Attendees")
+                        .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

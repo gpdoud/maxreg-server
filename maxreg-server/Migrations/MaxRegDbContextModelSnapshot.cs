@@ -29,9 +29,13 @@ namespace maxreg_server.Migrations
 
                     b.Property<int>("EventId");
 
+                    b.Property<int>("GuestId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EventId");
+
+                    b.HasIndex("GuestId");
 
                     b.ToTable("Attendees");
                 });
@@ -62,8 +66,6 @@ namespace maxreg_server.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<int?>("AttendeeId");
-
                     b.Property<string>("Email")
                         .HasMaxLength(255);
 
@@ -80,8 +82,6 @@ namespace maxreg_server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AttendeeId");
-
                     b.ToTable("Guest");
                 });
 
@@ -91,13 +91,11 @@ namespace maxreg_server.Migrations
                         .WithMany("Attendees")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
 
-            modelBuilder.Entity("maxreg_server.Models.Guest", b =>
-                {
-                    b.HasOne("maxreg_server.Models.Attendee")
-                        .WithMany("Guests")
-                        .HasForeignKey("AttendeeId");
+                    b.HasOne("maxreg_server.Models.Guest")
+                        .WithMany("Attendees")
+                        .HasForeignKey("GuestId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

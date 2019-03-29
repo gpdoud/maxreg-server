@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace maxreg_server.Migrations
 {
-    public partial class garbage1 : Migration
+    public partial class newtest : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,8 +47,8 @@ namespace maxreg_server.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     GuestId = table.Column<int>(nullable: false),
-                    Active = table.Column<bool>(nullable: false),
-                    EventId = table.Column<int>(nullable: true)
+                    EventId = table.Column<int>(nullable: false),
+                    Active = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,13 +58,24 @@ namespace maxreg_server.Migrations
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Attendees_Guest_GuestId",
+                        column: x => x.GuestId,
+                        principalTable: "Guest",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Attendees_EventId",
                 table: "Attendees",
                 column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Attendees_GuestId",
+                table: "Attendees",
+                column: "GuestId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -73,10 +84,10 @@ namespace maxreg_server.Migrations
                 name: "Attendees");
 
             migrationBuilder.DropTable(
-                name: "Guest");
+                name: "Events");
 
             migrationBuilder.DropTable(
-                name: "Events");
+                name: "Guest");
         }
     }
 }
