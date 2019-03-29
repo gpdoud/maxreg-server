@@ -9,21 +9,6 @@ namespace maxreg_server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Events",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: true),
-                    Date = table.Column<DateTime>(nullable: true),
-                    Active = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Events", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Guest",
                 columns: table => new
                 {
@@ -38,6 +23,28 @@ namespace maxreg_server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Guest", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 50, nullable: true),
+                    Date = table.Column<DateTime>(nullable: true),
+                    Active = table.Column<bool>(nullable: false),
+                    GuestId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Events_Guest_GuestId",
+                        column: x => x.GuestId,
+                        principalTable: "Guest",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,12 +66,6 @@ namespace maxreg_server.Migrations
                         principalTable: "Events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Attendees_Guest_GuestId",
-                        column: x => x.GuestId,
-                        principalTable: "Guest",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -73,8 +74,8 @@ namespace maxreg_server.Migrations
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attendees_GuestId",
-                table: "Attendees",
+                name: "IX_Events_GuestId",
+                table: "Events",
                 column: "GuestId");
         }
 

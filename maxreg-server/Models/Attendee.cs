@@ -15,7 +15,7 @@ namespace maxreg_server.Models
 
         [Required]
         public int EventId { get; set; }
-       
+                
         public bool Active { get; set; } = true;
 
         public Attendee()

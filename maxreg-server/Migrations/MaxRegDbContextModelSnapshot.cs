@@ -35,8 +35,6 @@ namespace maxreg_server.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.HasIndex("GuestId");
-
                     b.ToTable("Attendees");
                 });
 
@@ -50,10 +48,14 @@ namespace maxreg_server.Migrations
 
                     b.Property<DateTime?>("Date");
 
+                    b.Property<int?>("GuestId");
+
                     b.Property<string>("Name")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GuestId");
 
                     b.ToTable("Events");
                 });
@@ -91,11 +93,13 @@ namespace maxreg_server.Migrations
                         .WithMany("Attendees")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
 
+            modelBuilder.Entity("maxreg_server.Models.Event", b =>
+                {
                     b.HasOne("maxreg_server.Models.Guest")
-                        .WithMany("Attendees")
-                        .HasForeignKey("GuestId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("Events")
+                        .HasForeignKey("GuestId");
                 });
 #pragma warning restore 612, 618
         }
