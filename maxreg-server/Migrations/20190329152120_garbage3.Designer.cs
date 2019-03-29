@@ -10,8 +10,8 @@ using maxreg_server.Models;
 namespace maxreg_server.Migrations
 {
     [DbContext(typeof(MaxRegDbContext))]
-    [Migration("20190328235502_test")]
-    partial class test
+    [Migration("20190329152120_garbage3")]
+    partial class garbage3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,21 +29,9 @@ namespace maxreg_server.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<string>("Email")
-                        .HasMaxLength(255);
+                    b.Property<int>("EventId");
 
-                    b.Property<int?>("EventId");
-
-                    b.Property<string>("Firstname")
-                        .IsRequired()
-                        .HasMaxLength(30);
-
-                    b.Property<string>("Lastname")
-                        .IsRequired()
-                        .HasMaxLength(30);
-
-                    b.Property<string>("Phone")
-                        .HasMaxLength(12);
+                    b.Property<int>("GuestId");
 
                     b.HasKey("Id");
 
@@ -70,11 +58,39 @@ namespace maxreg_server.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("maxreg_server.Models.Guest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Firstname")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(12);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Guest");
+                });
+
             modelBuilder.Entity("maxreg_server.Models.Attendee", b =>
                 {
                     b.HasOne("maxreg_server.Models.Event")
                         .WithMany("Attendees")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

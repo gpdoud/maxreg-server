@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using maxreg_server.Models;
 
 namespace maxreg_server.Migrations
 {
     [DbContext(typeof(MaxRegDbContext))]
-    partial class MaxRegDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190329150748_garbage1")]
+    partial class garbage1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +29,9 @@ namespace maxreg_server.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<int>("EventId");
+                    b.Property<int?>("EventId");
+
+                    b.Property<int>("GuestId");
 
                     b.HasKey("Id");
 
@@ -62,8 +66,6 @@ namespace maxreg_server.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<int?>("AttendeeId");
-
                     b.Property<string>("Email")
                         .HasMaxLength(255);
 
@@ -80,8 +82,6 @@ namespace maxreg_server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AttendeeId");
-
                     b.ToTable("Guest");
                 });
 
@@ -89,15 +89,7 @@ namespace maxreg_server.Migrations
                 {
                     b.HasOne("maxreg_server.Models.Event")
                         .WithMany("Attendees")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("maxreg_server.Models.Guest", b =>
-                {
-                    b.HasOne("maxreg_server.Models.Attendee")
-                        .WithMany("Guests")
-                        .HasForeignKey("AttendeeId");
+                        .HasForeignKey("EventId");
                 });
 #pragma warning restore 612, 618
         }

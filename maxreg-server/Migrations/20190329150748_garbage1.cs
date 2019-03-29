@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace maxreg_server.Migrations
 {
-    public partial class test : Migration
+    public partial class garbage1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,7 +24,7 @@ namespace maxreg_server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attendees",
+                name: "Guest",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -33,6 +33,20 @@ namespace maxreg_server.Migrations
                     Lastname = table.Column<string>(maxLength: 30, nullable: false),
                     Phone = table.Column<string>(maxLength: 12, nullable: true),
                     Email = table.Column<string>(maxLength: 255, nullable: true),
+                    Active = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Guest", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Attendees",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    GuestId = table.Column<int>(nullable: false),
                     Active = table.Column<bool>(nullable: false),
                     EventId = table.Column<int>(nullable: true)
                 },
@@ -57,6 +71,9 @@ namespace maxreg_server.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Attendees");
+
+            migrationBuilder.DropTable(
+                name: "Guest");
 
             migrationBuilder.DropTable(
                 name: "Events");
