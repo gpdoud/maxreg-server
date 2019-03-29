@@ -26,7 +26,6 @@ namespace maxreg_server.Models
 
         public bool Active { get; set; } = true;
 
-
         public Guest()
         {
 
