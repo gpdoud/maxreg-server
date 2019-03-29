@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using maxreg_server.Models;
 
 namespace maxreg_server.Migrations
 {
     [DbContext(typeof(MaxRegDbContext))]
-    partial class MaxRegDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190329174646_new1")]
+    partial class new1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,13 +89,13 @@ namespace maxreg_server.Migrations
 
             modelBuilder.Entity("maxreg_server.Models.Attendee", b =>
                 {
-                    b.HasOne("maxreg_server.Models.Event", "Event")
-                        .WithMany()
+                    b.HasOne("maxreg_server.Models.Event")
+                        .WithMany("Attendees")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("maxreg_server.Models.Guest", "Guest")
-                        .WithMany()
+                    b.HasOne("maxreg_server.Models.Guest")
+                        .WithMany("Attendees")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
