@@ -1,0 +1,24 @@
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace maxreg_server.Models
+{
+    public class MaxRegDbContext : DbContext
+    {
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Attendee> Attendees { get; set; }
+
+        public MaxRegDbContext(DbContextOptions<MaxRegDbContext> context) : base(context)
+        {
+
+        }
+
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+
+        //}
+    }
+}
