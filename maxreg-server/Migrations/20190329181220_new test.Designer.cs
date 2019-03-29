@@ -10,8 +10,8 @@ using maxreg_server.Models;
 namespace maxreg_server.Migrations
 {
     [DbContext(typeof(MaxRegDbContext))]
-    [Migration("20190329180546_new7")]
-    partial class new7
+    [Migration("20190329181220_new test")]
+    partial class newtest
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,7 +90,7 @@ namespace maxreg_server.Migrations
             modelBuilder.Entity("maxreg_server.Models.Attendee", b =>
                 {
                     b.HasOne("maxreg_server.Models.Event", "Event")
-                        .WithMany("Attendees")
+                        .WithMany()
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade);
 

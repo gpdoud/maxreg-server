@@ -42,6 +42,7 @@ namespace maxreg_server {
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             app.UseMvc();
         }
     }
