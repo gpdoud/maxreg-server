@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace maxreg_server.Migrations
 {
-    public partial class newtest : Migration
+    public partial class addeduser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,6 +38,24 @@ namespace maxreg_server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Guest", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Username = table.Column<string>(maxLength: 30, nullable: false),
+                    Password = table.Column<string>(maxLength: 30, nullable: false),
+                    Firstname = table.Column<string>(maxLength: 30, nullable: false),
+                    Lastname = table.Column<string>(maxLength: 30, nullable: false),
+                    IsAdmin = table.Column<bool>(nullable: false),
+                    Active = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,6 +100,9 @@ namespace maxreg_server.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Attendees");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Events");
