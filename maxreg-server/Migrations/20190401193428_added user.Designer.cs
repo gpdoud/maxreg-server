@@ -10,8 +10,8 @@ using maxreg_server.Models;
 namespace maxreg_server.Migrations
 {
     [DbContext(typeof(MaxRegDbContext))]
-    [Migration("20190329181220_new test")]
-    partial class newtest
+    [Migration("20190401193428_added user")]
+    partial class addeduser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,6 +85,37 @@ namespace maxreg_server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Guest");
+                });
+
+            modelBuilder.Entity("maxreg_server.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active");
+
+                    b.Property<string>("Firstname")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
+                    b.Property<bool>("IsAdmin");
+
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("maxreg_server.Models.Attendee", b =>
