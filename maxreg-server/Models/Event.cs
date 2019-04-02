@@ -15,6 +15,8 @@ namespace maxreg_server.Models
 
         public DateTime? Date { get; set; }
 
+        public virtual IList<Attendee> Attendees { get; set; }
+
         public bool Active { get; set; } = true;
 
         public Event()

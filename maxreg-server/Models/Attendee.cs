@@ -18,8 +18,8 @@ namespace maxreg_server.Models
                 
         public bool Active { get; set; } = true;
 
-        public virtual Guest Guest { get; set; }
-        public virtual Event Event { get; set; }
+        //public virtual Guest Guest { get; set; }
+        //public virtual Event Event { get; set; }
 
         public Attendee()
         {

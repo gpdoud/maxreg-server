@@ -24,6 +24,8 @@ namespace maxreg_server.Models
         [StringLength(255)]
         public string Email { get; set; }
 
+        public virtual IList<Attendee> Attendees { get; set; }
+
         public bool Active { get; set; } = true;
 
         public Guest()
